@@ -5,14 +5,17 @@ import "./Note.css";
 
 type Props = {
   note: INote;
+  onNoteUpdate: Function;
 };
 
-const noteTextUpdated = (event: FocusEvent<HTMLDivElement>) => {
-  console.log("Note text changed");
-  console.log(event.currentTarget.textContent);
-};
+const Note: FC<Props> = ({ note, onNoteUpdate }) => {
+  const noteTextUpdated = (event: FocusEvent<HTMLDivElement>) => {
+    console.log("Note text changed");
+    console.log(event.currentTarget.textContent);
+    note.text = event.currentTarget.textContent || "";
+    onNoteUpdate(note);
+  };
 
-const Note: FC<Props> = ({ note }) => {
   return (
     <div className="note">
       <div
